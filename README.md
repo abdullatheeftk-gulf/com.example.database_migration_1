@@ -6,34 +6,39 @@ Add these items to build.gradle.kts
 
 
 plugins {
+
 	..........
 	// Flyway gradle plugin
     	id("org.flywaydb.flyway") version "10.7.2"
+     
 }
 
 
 buildscript {
+
     dependencies {
         classpath("org.postgresql:postgresql:42.7.1")
         classpath("org.flywaydb:flyway-database-postgresql:10.7.2")
     }
 }
 
+// Deoendencies
 dependencies {
 
+	........
+    	// Exposed orm dependencies
+    	implementation("org.jetbrains.exposed:exposed-core:0.47.0")
+    	implementation("org.jetbrains.exposed:exposed-jdbc:0.47.0")
 
-    // Exposed orm dependencies
-    implementation("org.jetbrains.exposed:exposed-core:0.47.0")
-    implementation("org.jetbrains.exposed:exposed-jdbc:0.47.0")
 
-
-    // Postgresql dependencies
-    implementation("org.postgresql:postgresql:42.7.1")    
-
+    	// Postgresql dependencies
+    	implementation("org.postgresql:postgresql:42.7.1")  
+     	.........
 }
 
 // Add flyway configuration after adding the Flyway gradle plugin
 flyway{
+
 	driver="org.postgresql.Driver"
 
 	// Database name is migration-sample
@@ -72,11 +77,15 @@ postgres {
 
 // Then add the following SQL statement to the above file V1__initial_migration.sql
 
-CREATE TABLE IF NOT EXISTS "user"
-(
-    id     SERIAL PRIMARY KEY,
-    "name" VARCHAR(128) NOT NULL
-);
+{
+
+	CREATE TABLE IF NOT EXISTS "user"
+	(
+   	 id     SERIAL PRIMARY KEY,
+   	 "name" VARCHAR(128) NOT NULL
+	);
+
+}
 
 
 // For second migration
@@ -85,4 +94,9 @@ CREATE TABLE IF NOT EXISTS "user"
 
 // Then add the following SQL statement
 // To add a new column to the user table
-ALTER TABLE "user" ADD COLUMN mark FLOAT;
+
+{
+
+	ALTER TABLE "user" ADD COLUMN mark FLOAT;
+
+}
